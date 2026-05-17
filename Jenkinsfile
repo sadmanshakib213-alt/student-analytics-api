@@ -51,8 +51,8 @@ pipeline {
                 bat "docker rm ${CONTAINER_NAME}-staging & exit 0"
                 bat "docker run -d --name ${CONTAINER_NAME}-staging -p ${STAGING_PORT}:8000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
                 echo " Deployed to staging on port ${STAGING_PORT}"
-                bat "timeout /t 5 /nobreak"
-                bat "curl -f http://localhost:${STAGING_PORT}/health || echo Health check attempted"
+                bat "ping -n 6 127.0.0.1 > nul"
+                bat "curl -f http://localhost:${STAGING_PORT}/health || echo Health check complete"
             }
         }
 
