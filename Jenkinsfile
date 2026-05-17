@@ -38,12 +38,9 @@ pipeline {
 
         stage('Security') {
             steps {
-                echo ' Running security analysis...'
-                bat """
-                    docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} pip install pbr && ^
-                    docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} python -m bandit -r app/ -f txt
-                """
-                echo ' Security scan complete!'
+                echo '🔒 Running security analysis...'
+                bat "docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} python -m bandit -r app/ -f txt"
+                echo '✅ Security scan complete!'
             }
         }
 
